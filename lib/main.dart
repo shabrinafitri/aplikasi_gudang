@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:http/http.dart' as http;
 import './detail.dart';
+import './add-data.dart';
 
 void main() {
   runApp(new MaterialApp(
@@ -33,7 +34,11 @@ class _HomeState extends State<Home> {
       //Membuat floating button untuk link ke halaman form tambah data
       floatingActionButton: new FloatingActionButton(
         child: new Icon(Icons.add),
-        onPressed: () {},
+        onPressed: ()=>Navigator.of(context).push(
+          new MaterialPageRoute(
+            builder: (BuildContext context)=> new AddData(), //Membuka form Add Data
+          ) 
+        ),
       ),
 
       //Memasukan data kedalam Widget List
