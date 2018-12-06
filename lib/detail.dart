@@ -1,3 +1,4 @@
+import 'package:aplikasi_gudang/edit-data.dart';
 import 'package:flutter/material.dart';
 
 class Detail extends StatefulWidget {
@@ -45,21 +46,26 @@ class _DetailState extends State<Detail> {
                 ),
 
                 //Membuat Button Edit dan Delete
-                // new Row(
-                //   mainAxisSize: MainAxisSize.min,
-                //   children: <Widget>[
-                //     new RaisedButton(
-                //       child: new Text("Edit"),
-                //       color: Colors.yellow,
-                //       onPressed: () {},
-                //     ),
-                //     new RaisedButton(
-                //       child: new Text("Delete"),
-                //       color: Colors.red,
-                //       onPressed: () {},
-                //     ),
-                //   ],
-                // ),
+                new Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    //Button untuk link ke halaman form edit data
+                    new RaisedButton(
+                      child: new Text("Edit"),
+                      color: Colors.yellow,
+                      onPressed: ()=>Navigator.of(context).push(
+                        new MaterialPageRoute(
+                          builder: (BuildContext context)=>new EditData(list: widget.list, index: widget.index),
+                        )
+                      ),
+                    ),
+                    new RaisedButton(
+                      child: new Text("Delete"),
+                      color: Colors.red,
+                      onPressed: () {},
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
