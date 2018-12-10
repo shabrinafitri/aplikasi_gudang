@@ -1,5 +1,7 @@
 import 'package:aplikasi_gudang/edit-data.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import './main.dart';
 
 class Detail extends StatefulWidget {
   //Variabel untuk menampung data
@@ -12,6 +14,45 @@ class Detail extends StatefulWidget {
 }
 
 class _DetailState extends State<Detail> {
+
+  void deleteData() {
+    //Url hapus data di webhosting
+    var url = "https://development-api.000webhostapp.com/flutter_api/delete.php";
+
+    http.post(url, body: {
+      'id': widget.list[widget.index]['id']
+    });
+  }
+
+  //Validasi tombol delete
+  void confirm(){
+    AlertDialog alertDialog = new AlertDialog(
+      content: new Text("Serius mau hapus data '${widget.list[widget.index]['nama_barang']}'?"),
+      actions: <Widget>[
+        new RaisedButton(
+          child: new Text("Oke hapus!", style: new TextStyle(color: Colors.white),),
+          color: Colors.red,
+          //Ketika di tekan akan menjalankan method deleteData
+          onPressed: (){
+            deleteData();
+            Navigator.of(context).push(
+              new MaterialPageRoute(
+                builder: (BuildContext context)=> new Home(),
+              )
+            );
+          },
+        ),
+        new RaisedButton(
+          child: new Text("Batal", style: new TextStyle(color: Colors.white),),
+          color: Colors.green,
+          onPressed: ()=> Navigator.pop(context),
+        ),
+      ],
+    );
+
+    showDialog(context: context, child: alertDialog);
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -60,9 +101,10 @@ class _DetailState extends State<Detail> {
                       ),
                     ),
                     new RaisedButton(
-                      child: new Text("Delete"),
+                      child: new Text("Hapus"),
                       color: Colors.red,
-                      onPressed: () {},
+                      //Ketika tombol delete di tekan akan menjalankan method confirm sebagai validasi
+                      onPressed: ()=>confirm(),
                     ),
                   ],
                 ),
